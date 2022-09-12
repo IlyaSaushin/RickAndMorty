@@ -1,6 +1,6 @@
-package com.freedasd.rickandmorty.data.modules
+package com.freedasd.rickandmorty.presentation.modules
 
-interface Character {
+interface CharacterUi {
 
     class Base(
         private val id: Int,
@@ -17,5 +17,5 @@ interface Character {
         private val episode: List<String>,
         private val url: String,
         private val created: String
-    ) : Character
+    ) : CharacterUi
 }
