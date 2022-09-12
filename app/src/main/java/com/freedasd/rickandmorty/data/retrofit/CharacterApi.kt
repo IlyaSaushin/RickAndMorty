@@ -1,5 +1,7 @@
 package com.freedasd.rickandmorty.data.retrofit
 
+import com.freedasd.rickandmorty.data.mappers.CharacterCloudToDataMapper
+import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.google.gson.annotations.SerializedName
 
 data class CharacterApi(
@@ -27,7 +29,24 @@ data class CharactersResult(
     @SerializedName("episode") val episode: List<String>,
     @SerializedName("url") val url: String,
     @SerializedName("created") val created: String
-)
+) {
+    fun map(mapper: CharacterCloudToDataMapper) = CharacterData.Base(
+        id,
+        name,
+        isAlive,
+        species,
+        type,
+        gender,
+        origin.name,
+        origin.location,
+        location.name,
+        location.url,
+        image,
+        episode,
+        url,
+        created
+    )
+}
 
 data class CharacterOrigin(
     @SerializedName("name") val name: String,
