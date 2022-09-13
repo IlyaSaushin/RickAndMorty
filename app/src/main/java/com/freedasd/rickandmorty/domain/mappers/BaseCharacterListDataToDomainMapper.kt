@@ -3,8 +3,10 @@ package com.freedasd.rickandmorty.domain.mappers
 import com.freedasd.rickandmorty.data.mappers.CharacterListDataToDomainMapper
 import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.freedasd.rickandmorty.domain.modules.CharactersListDomain
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class BaseCharacterListDataToDomainMapper(
+class BaseCharacterListDataToDomainMapper @Inject constructor(
     private val characterDataToDomainMapper: BaseCharacterDataToDomainMapper
 ): CharacterListDataToDomainMapper {
 

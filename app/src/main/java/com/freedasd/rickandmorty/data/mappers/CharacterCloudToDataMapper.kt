@@ -3,10 +3,12 @@ package com.freedasd.rickandmorty.data.mappers
 import com.freedasd.rickandmorty.core.BaseMapper
 import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.freedasd.rickandmorty.data.retrofit.CharactersResult
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class CharacterCloudToDataMapper : BaseMapper<CharactersResult, CharacterData> {
+class CharacterCloudToDataMapper @Inject constructor() {
 
-    override fun map(data: CharactersResult) = CharacterData.Base(
+    fun map(data: CharactersResult) = CharacterData.Base(
         data.id,
         data.name,
         data.isAlive,

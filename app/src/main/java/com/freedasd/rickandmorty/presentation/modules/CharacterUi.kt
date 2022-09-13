@@ -1,8 +1,11 @@
 package com.freedasd.rickandmorty.presentation.modules
 
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
 interface CharacterUi {
 
-    class Base(
+    class Base @Inject constructor(
         private val id: Int,
         private val name: String,
         private val isAlive: String,

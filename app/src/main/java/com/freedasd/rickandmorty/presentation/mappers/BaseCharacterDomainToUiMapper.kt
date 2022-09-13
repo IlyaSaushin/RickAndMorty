@@ -2,8 +2,10 @@ package com.freedasd.rickandmorty.presentation.mappers
 
 import com.freedasd.rickandmorty.domain.mappers.CharacterDomainToUiMapper
 import com.freedasd.rickandmorty.presentation.modules.CharacterUi
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class BaseCharacterDomainToUiMapper : CharacterDomainToUiMapper {
+class BaseCharacterDomainToUiMapper @Inject constructor() : CharacterDomainToUiMapper {
 
     override fun mapToUi(
         id: Int,
