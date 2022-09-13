@@ -2,6 +2,7 @@ package com.freedasd.rickandmorty.data.modules
 
 import com.freedasd.rickandmorty.data.mappers.CharacterListDataToDomainMapper
 import com.freedasd.rickandmorty.domain.modules.CharactersListDomain
+import dagger.hilt.android.AndroidEntryPoint
 
 sealed class CharacterListData {
 

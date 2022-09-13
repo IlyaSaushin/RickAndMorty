@@ -2,12 +2,14 @@ package com.freedasd.rickandmorty.data.modules
 
 import com.freedasd.rickandmorty.domain.mappers.BaseCharacterDataToDomainMapper
 import com.freedasd.rickandmorty.domain.modules.CharacterDomain
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 interface CharacterData {
 
     fun mapToDomain(mapper: BaseCharacterDataToDomainMapper) : CharacterDomain
 
-    class Base(
+    class Base @Inject constructor(
         private val id: Int,
         private val name: String,
         private val isAlive: String,
@@ -23,6 +25,7 @@ interface CharacterData {
         private val url: String,
         private val created: String
     ) : CharacterData {
+
         override fun mapToDomain(mapper: BaseCharacterDataToDomainMapper) = CharacterDomain.Base(
             id,
             name,

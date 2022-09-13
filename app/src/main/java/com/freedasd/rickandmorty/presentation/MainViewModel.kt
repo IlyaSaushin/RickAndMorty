@@ -9,17 +9,21 @@ import com.freedasd.rickandmorty.data.retrofit.RetrofitClient
 import com.freedasd.rickandmorty.domain.Interactor
 import com.freedasd.rickandmorty.domain.Repository
 import com.freedasd.rickandmorty.presentation.mappers.BaseCharacterListDomainToUiMapper
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-
-    private val service = RetrofitClient.buildService()
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val interactor: Interactor
+): ViewModel() {
 
     fun init() {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = service.charactersList()
-            Log.d("tag", "init: $list")
+            val list = interactor.fetchCharactersList()
+            Log.d("tag", "init: ${list}")
         }
     }
 }

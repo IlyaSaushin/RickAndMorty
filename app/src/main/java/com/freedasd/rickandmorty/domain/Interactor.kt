@@ -2,12 +2,14 @@ package com.freedasd.rickandmorty.domain
 
 import com.freedasd.rickandmorty.data.mappers.CharacterListDataToDomainMapper
 import com.freedasd.rickandmorty.domain.modules.CharactersListDomain
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 interface Interactor {
 
     suspend fun fetchCharactersList() : CharactersListDomain
 
-    class Base(
+    class Base @Inject constructor(
         private val repository: Repository,
         private val charactersListDataToDomainMapper: CharacterListDataToDomainMapper
     ) : Interactor {

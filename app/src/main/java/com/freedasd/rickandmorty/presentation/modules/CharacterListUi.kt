@@ -1,5 +1,7 @@
 package com.freedasd.rickandmorty.presentation.modules
 
+import dagger.hilt.android.AndroidEntryPoint
+
 sealed class CharacterListUi {
 
     data class Success(private val list: List<CharacterUi>) : CharacterListUi()

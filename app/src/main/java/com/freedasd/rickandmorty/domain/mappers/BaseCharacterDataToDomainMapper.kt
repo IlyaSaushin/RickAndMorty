@@ -2,8 +2,10 @@ package com.freedasd.rickandmorty.domain.mappers
 
 import com.freedasd.rickandmorty.data.mappers.CharacterDataToDomainMapper
 import com.freedasd.rickandmorty.domain.modules.CharacterDomain
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class BaseCharacterDataToDomainMapper : CharacterDataToDomainMapper {
+class BaseCharacterDataToDomainMapper @Inject constructor() : CharacterDataToDomainMapper {
 
     override fun mapToDomain(
         id: Int,

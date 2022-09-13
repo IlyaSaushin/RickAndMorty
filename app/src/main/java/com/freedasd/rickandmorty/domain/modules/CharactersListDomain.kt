@@ -2,6 +2,7 @@ package com.freedasd.rickandmorty.domain.modules
 
 import com.freedasd.rickandmorty.domain.mappers.CharacterListDomainToUiMapper
 import com.freedasd.rickandmorty.presentation.modules.CharacterListUi
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 
 sealed class CharactersListDomain() {

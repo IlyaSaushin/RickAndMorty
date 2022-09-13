@@ -3,12 +3,14 @@ package com.freedasd.rickandmorty.domain.modules
 import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.freedasd.rickandmorty.presentation.mappers.BaseCharacterDomainToUiMapper
 import com.freedasd.rickandmorty.presentation.modules.CharacterUi
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 interface CharacterDomain {
 
     fun mapToUi(mapper: BaseCharacterDomainToUiMapper) : CharacterUi
 
-    class Base(
+    class Base @Inject constructor(
         private val id: Int,
         private val name: String,
         private val isAlive: String,
