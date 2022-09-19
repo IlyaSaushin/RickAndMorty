@@ -22,8 +22,12 @@ class MainViewModel @Inject constructor(
 
     fun init() {
         viewModelScope.launch(Dispatchers.IO) {
-            val list = interactor.fetchCharactersList()
-            Log.d("tag", "init: ${list}")
+            val list = interactor.fetchCharactersList(START_CHARACTERS_PAGE)
         }
+    }
+
+    companion object {
+
+        private const val START_CHARACTERS_PAGE = 1
     }
 }

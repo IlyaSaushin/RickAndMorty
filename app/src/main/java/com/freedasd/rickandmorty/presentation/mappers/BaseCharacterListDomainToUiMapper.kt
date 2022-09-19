@@ -10,7 +10,7 @@ class BaseCharacterListDomainToUiMapper @Inject constructor(
     private val characterDomainToUiMapper: BaseCharacterDomainToUiMapper
 ) : CharacterListDomainToUiMapper {
 
-    override fun mapSuccess(list: List<CharacterDomain>) = CharacterListUi.Success(list.map { it.mapToUi(characterDomainToUiMapper) })
+    override fun mapSuccess(list: List<CharacterDomain>) = CharacterListUi.Success(list, characterDomainToUiMapper)
 
     override fun mapFail(e: Exception) = CharacterListUi.Fail(e)
 }
