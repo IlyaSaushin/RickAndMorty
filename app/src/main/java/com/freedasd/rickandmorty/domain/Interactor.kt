@@ -7,12 +7,13 @@ import javax.inject.Inject
 
 interface Interactor {
 
-    suspend fun fetchCharactersList() : CharactersListDomain
+    suspend fun fetchCharactersList(page: Int) : CharactersListDomain
 
     class Base @Inject constructor(
         private val repository: Repository,
         private val charactersListDataToDomainMapper: CharacterListDataToDomainMapper
     ) : Interactor {
-        override suspend fun fetchCharactersList() = repository.fetchCharacterList().map(charactersListDataToDomainMapper)
+        override suspend fun fetchCharactersList(page: Int) =
+            repository.fetchCharacterList(page).map(charactersListDataToDomainMapper)
     }
 }

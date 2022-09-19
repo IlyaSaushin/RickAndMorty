@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#E0FFFF"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/character_pic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/character_origin"
+            app:layout_constraintEnd_toStartOf="@id/character_name"
+            />
+
+        <TextView
+            android:id="@+id/character_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="2"
+            tools:text="name"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/character_pic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/character_pic"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/character_isAlive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="is alive"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintTop_toBottomOf="@id/character_name"
+            app:layout_constraintEnd_toEndOf="@id/character_name"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/character_species"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="species"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/character_isAlive"
+            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintEnd_toEndOf="@id/character_name"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/character_gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="gender"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/character_species"
+            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintEnd_toEndOf="@id/character_name"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/character_origin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="from"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/character_gender"
+            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintEnd_toEndOf="@id/character_name"
+            android:padding="4dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

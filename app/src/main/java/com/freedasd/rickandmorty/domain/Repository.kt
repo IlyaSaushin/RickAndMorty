@@ -4,5 +4,5 @@ import com.freedasd.rickandmorty.data.modules.CharacterListData
 
 interface Repository {
 
-    suspend fun fetchCharacterList() : CharacterListData
+    suspend fun fetchCharacterList(page: Int) : CharacterListData
 }
