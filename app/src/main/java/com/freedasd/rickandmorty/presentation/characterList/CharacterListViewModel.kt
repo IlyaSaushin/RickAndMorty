@@ -1,5 +1,6 @@
 package com.freedasd.rickandmorty.presentation.characterList
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.freedasd.rickandmorty.domain.Interactor
 import com.freedasd.rickandmorty.presentation.CharacterListRender

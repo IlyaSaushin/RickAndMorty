@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import com.freedasd.rickandmorty.presentation.modules.CharacterUi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
 import javax.inject.Inject
 
 interface CharacterListRender {
@@ -16,11 +18,11 @@ interface CharacterListRender {
 
     class Base @Inject constructor(): CharacterListRender {
 
-        private val characterListLiveData = MutableLiveData<List<CharacterUi>>()
+        private val characterListLiveData = MutableLiveData<ArrayList<CharacterUi>>()
 
         override suspend fun fetchCharacterList(list: List<CharacterUi>) {
             withContext(Dispatchers.Main) {
-                characterListLiveData.value = list
+                characterListLiveData.plusAssign(list)
             }
         }
 
@@ -30,5 +32,11 @@ interface CharacterListRender {
         ) {
             characterListLiveData.observe(owner, observer)
         }
+    }
+
+    operator fun <T> MutableLiveData<ArrayList<T>>.plusAssign(values: List<T>) {
+        val value = this.value ?: arrayListOf()
+        value.addAll(values)
+        this.value = value
     }
 }

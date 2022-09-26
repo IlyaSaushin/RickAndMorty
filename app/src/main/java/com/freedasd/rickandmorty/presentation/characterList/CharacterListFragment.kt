@@ -2,19 +2,23 @@ package com.freedasd.rickandmorty.presentation.characterList
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.freedasd.rickandmorty.core.BaseFragment
 import com.freedasd.rickandmorty.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
+import kotlinx.coroutines.delay
 import javax.inject.Inject
+
+interface MoreCharactersLoader {
+
+    suspend fun load(page: Int)
+}
 
 @AndroidEntryPoint
 class CharacterListFragment @Inject constructor(): BaseFragment<FragmentCharacterListBinding>() {
@@ -46,28 +50,21 @@ class CharacterListFragment @Inject constructor(): BaseFragment<FragmentCharacte
         binding.recyclerView.layoutManager = manager
 
         val scrollListener = object : RecyclerView.OnScrollListener() {
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+
                 val visibleItemsCount = manager.childCount
                 val totalItemsCount = manager.itemCount
-                val firstVisibleItems = manager.findFirstVisibleItemPosition()
+                val firstVisibleItem = manager.findFirstVisibleItemPosition()
 
-                if (!isLoading) {
-                    if ( (visibleItemsCount+firstVisibleItems) >= totalItemsCount) {
-                        Toast.makeText(requireContext(), "List is over", Toast.LENGTH_SHORT).show()
-                        isLoading = true
+                if (!Loader().loaded) {
+                    if ((visibleItemsCount+firstVisibleItem) >= totalItemsCount) {
 
-//                        loadMoreCharacters()
-                        if (loadingPage <= 42){
-                            loadingPage += 1
-                            viewModel.fetchCharacterList(loadingPage)
-                            isLoading = false
-
-                        }
-
-//                        if (loadingListener != null) {
-//                            loadingListener.loadMoreItems()
-//                        }
+                        loadingPage += 1
+                        loadMoreCharacters(loadingPage)
+//                        isLoading = true
+//                        loadMoreCharacters(loadingPage)
                     }
                 }
             }
@@ -75,33 +72,23 @@ class CharacterListFragment @Inject constructor(): BaseFragment<FragmentCharacte
         binding.recyclerView.addOnScrollListener(scrollListener)
         viewModel.observeCharacterList(viewLifecycleOwner) {
             adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+            Loader().loaded = false
         }
     }
 
-    private fun loadMoreCharacters() {
-        // todo
+    private fun loadMoreCharacters(page: Int) {
+        viewModel.fetchCharacterList(page)
     }
 
-//    private inner class ScrollListener() : RecyclerView.OnScrollListener() {
-//        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//            super.onScrolled(recyclerView, dx, dy)
-//            val manager = GridLayoutManager(requireContext(), 2)
-//            val visibleItemCount = manager.childCount ;//смотрим сколько элементов на экране
-//            val totalItemCount = manager.itemCount ;//сколько всего элементов
-//            val firstVisibleItems = manager.findFirstVisibleItemPosition() //какая позиция первого элемента
-////            Toast.makeText(requireContext(), "$totalItemCount", Toast.LENGTH_SHORT).show()
-//
-//            if (!isLoading) {//проверяем, грузим мы что-то или нет, эта переменная должна быть вне класса  OnScrollListener
-//                if ( (visibleItemCount+firstVisibleItems) >= totalItemCount) {
-//                    Toast.makeText(requireContext(), "List is over", Toast.LENGTH_SHORT).show()
-////                    isLoading = true;//ставим флаг что мы попросили еще элемены
-////                    if (loadingListener != null) {
-////                        loadingListener.loadMoreItems();//тут я использовал калбэк который просто говорит наружу что нужно еще элементов и с какой позиции начинать загрузку
-////                    }
-//                }
-//            }
-//        }
-//    }
+    private inner class Loader : MoreCharactersLoader {
+
+        var loaded = false
+
+        override suspend fun load(page: Int) {
+            viewModel.fetchCharacterList(page)
+        }
+    }
 
     companion object {
 

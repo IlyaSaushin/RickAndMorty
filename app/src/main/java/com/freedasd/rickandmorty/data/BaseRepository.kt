@@ -15,13 +15,18 @@ class BaseRepository @Inject constructor(
     private val characterCLoudToDataMapper: CharacterCloudToDataMapper
 ) : Repository {
 
-    private val charactersDataList = mutableListOf<CharacterData.Base>()
-
     override suspend fun fetchCharacterList(page: Int) = try {
         Log.d("tag", "fetchCharacterList: $page")
-            charactersDataList += service.charactersList(page).results.map { it.map(characterCLoudToDataMapper) }
+            val charactersDataList = service.charactersList(page).results.map { it.map(characterCLoudToDataMapper) }
             CharacterListData.Success(charactersDataList)
         } catch (e: Exception) {
             CharacterListData.Fail(e)
         }
+
+    override suspend fun fetchMoreCharactersForRecycler(page: Int) = try {
+        val characterPackage = service.charactersList(page).results.map { it.map(characterCLoudToDataMapper) }
+        CharacterListData.Success(characterPackage)
+    } catch (e: Exception) {
+        CharacterListData.Fail(e)
+    }
 }
