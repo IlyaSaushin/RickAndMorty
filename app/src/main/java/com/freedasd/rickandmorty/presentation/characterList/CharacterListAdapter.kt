@@ -2,11 +2,14 @@ package com.freedasd.rickandmorty.presentation.characterList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.*
+import com.freedasd.rickandmorty.R
 import com.freedasd.rickandmorty.databinding.CharacterItemBinding
 import com.freedasd.rickandmorty.presentation.modules.CharacterUi
 
-class CharacterListAdapter : ListAdapter<CharacterUi, RecyclerView.ViewHolder>(Diff) {
+class CharacterListAdapter : PagingDataAdapter<CharacterUi.Base, RecyclerView.ViewHolder>(Diff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = CharacterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -15,7 +18,8 @@ class CharacterListAdapter : ListAdapter<CharacterUi, RecyclerView.ViewHolder>(D
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        (holder as CharacterViewHolder).bind(item)
+        holder.itemView.animation = AnimationUtils.loadAnimation(holder.itemView.context, R.anim.characters_animation)
+        (holder as CharacterViewHolder).bind(item!!)
     }
 
     inner class CharacterViewHolder(private val binding: CharacterItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -31,10 +35,10 @@ class CharacterListAdapter : ListAdapter<CharacterUi, RecyclerView.ViewHolder>(D
         }
     }
 
-    companion object Diff : DiffUtil.ItemCallback<CharacterUi>() {
+    companion object Diff : DiffUtil.ItemCallback<CharacterUi.Base>() {
 
-        override fun areItemsTheSame(oldItem: CharacterUi, newItem: CharacterUi) = oldItem.same(newItem)
+        override fun areItemsTheSame(oldItem: CharacterUi.Base, newItem: CharacterUi.Base) = oldItem.same(newItem)
 
-        override fun areContentsTheSame(oldItem: CharacterUi, newItem: CharacterUi) = oldItem.toString() == newItem.toString()
+        override fun areContentsTheSame(oldItem: CharacterUi.Base, newItem: CharacterUi.Base) = oldItem.toString() == newItem.toString()
     }
 }

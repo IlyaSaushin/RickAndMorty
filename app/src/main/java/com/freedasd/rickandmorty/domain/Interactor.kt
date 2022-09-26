@@ -1,25 +1,25 @@
 package com.freedasd.rickandmorty.domain
 
-import com.freedasd.rickandmorty.data.mappers.CharacterListDataToDomainMapper
-import com.freedasd.rickandmorty.domain.modules.CharactersListDomain
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.paging.PagingData
+import androidx.paging.map
+import com.freedasd.rickandmorty.domain.mappers.BaseCharacterDataToDomainMapper
+import com.freedasd.rickandmorty.domain.modules.CharacterDomain
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface Interactor {
 
-    suspend fun fetchCharactersList(page: Int) : CharactersListDomain
-
-    suspend fun fetchMoreCharactersForRecycler(page: Int) : CharactersListDomain
+    fun fetchCharactersList() : Flow<PagingData<CharacterDomain.Base>>
 
     class Base @Inject constructor(
         private val repository: Repository,
-        private val charactersListDataToDomainMapper: CharacterListDataToDomainMapper
+        private val characterDataToDomainMapper: BaseCharacterDataToDomainMapper
     ) : Interactor {
 
-        override suspend fun fetchCharactersList(page: Int) =
-            repository.fetchCharacterList(page).map(charactersListDataToDomainMapper)
-
-        override suspend fun fetchMoreCharactersForRecycler(page: Int) =
-            repository.fetchMoreCharactersForRecycler(page).map(charactersListDataToDomainMapper)
+        override fun fetchCharactersList() =
+            repository.fetchCharactersList().map { CharacterData ->
+                CharacterData.map { it.mapToDomain(characterDataToDomainMapper) }
+            }
     }
 }

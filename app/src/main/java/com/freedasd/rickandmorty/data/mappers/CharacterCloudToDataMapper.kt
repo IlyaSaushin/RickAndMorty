@@ -1,9 +1,7 @@
 package com.freedasd.rickandmorty.data.mappers
 
-import com.freedasd.rickandmorty.core.BaseMapper
 import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.freedasd.rickandmorty.data.retrofit.CharactersResult
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 class CharacterCloudToDataMapper @Inject constructor() {

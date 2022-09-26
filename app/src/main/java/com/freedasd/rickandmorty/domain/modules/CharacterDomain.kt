@@ -1,9 +1,7 @@
 package com.freedasd.rickandmorty.domain.modules
 
-import com.freedasd.rickandmorty.data.modules.CharacterData
 import com.freedasd.rickandmorty.presentation.mappers.BaseCharacterDomainToUiMapper
 import com.freedasd.rickandmorty.presentation.modules.CharacterUi
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 interface CharacterDomain {

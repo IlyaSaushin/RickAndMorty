@@ -1,13 +1,14 @@
 package com.freedasd.rickandmorty.data
 
-import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.freedasd.rickandmorty.data.CharacterPagingSource.Companion.NETWORK_PAGE_SIZE
 import com.freedasd.rickandmorty.data.mappers.CharacterCloudToDataMapper
 import com.freedasd.rickandmorty.data.modules.CharacterData
-import com.freedasd.rickandmorty.data.modules.CharacterListData
 import com.freedasd.rickandmorty.data.retrofit.Service
 import com.freedasd.rickandmorty.domain.Repository
-import dagger.hilt.EntryPoint
-import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BaseRepository @Inject constructor(
@@ -15,18 +16,13 @@ class BaseRepository @Inject constructor(
     private val characterCLoudToDataMapper: CharacterCloudToDataMapper
 ) : Repository {
 
-    override suspend fun fetchCharacterList(page: Int) = try {
-        Log.d("tag", "fetchCharacterList: $page")
-            val charactersDataList = service.charactersList(page).results.map { it.map(characterCLoudToDataMapper) }
-            CharacterListData.Success(charactersDataList)
-        } catch (e: Exception) {
-            CharacterListData.Fail(e)
-        }
-
-    override suspend fun fetchMoreCharactersForRecycler(page: Int) = try {
-        val characterPackage = service.charactersList(page).results.map { it.map(characterCLoudToDataMapper) }
-        CharacterListData.Success(characterPackage)
-    } catch (e: Exception) {
-        CharacterListData.Fail(e)
+    override fun fetchCharactersList(): Flow<PagingData<CharacterData.Base>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { CharacterPagingSource(service, characterCLoudToDataMapper) }
+        ).flow
     }
 }

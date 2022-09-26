@@ -1,10 +1,10 @@
 package com.freedasd.rickandmorty.domain
 
-import com.freedasd.rickandmorty.data.modules.CharacterListData
+import androidx.paging.PagingData
+import com.freedasd.rickandmorty.data.modules.CharacterData
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun fetchCharacterList(page: Int) : CharacterListData
-
-    suspend fun fetchMoreCharactersForRecycler(page: Int) : CharacterListData
+    fun fetchCharactersList() : Flow<PagingData<CharacterData.Base>>
 }
