@@ -12,39 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/character_pic"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintHorizontal_weight="2"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/character_origin"
-            app:layout_constraintEnd_toStartOf="@id/character_name"
+            app:layout_constraintBottom_toTopOf="@id/character_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/add_avatar_background"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
             />
 
         <TextView
             android:id="@+id/character_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="2"
             tools:text="name"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/character_pic"
+            app:layout_constraintTop_toBottomOf="@id/character_pic"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/character_pic"
+            app:layout_constraintBottom_toTopOf="@id/character_isAlive"
             android:padding="4dp"
+            />
+
+        <View
+            android:id="@+id/is_alive_dot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:layout_constraintHorizontal_weight="0.1"
+            app:layout_constraintTop_toTopOf="@id/character_isAlive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/character_isAlive"
+            app:layout_constraintBottom_toBottomOf="@id/character_isAlive"
+            android:background="@drawable/alive_round_dot"
+            android:layout_marginHorizontal="10dp"
             />
 
         <TextView
             android:id="@+id/character_isAlive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="0.9"
             tools:text="is alive"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintStart_toEndOf="@id/is_alive_dot"
             app:layout_constraintTop_toBottomOf="@id/character_name"
             app:layout_constraintEnd_toEndOf="@id/character_name"
+            app:layout_constraintBottom_toTopOf="@id/character_species"
             android:padding="4dp"
             />
 
@@ -52,11 +69,13 @@
             android:id="@+id/character_species"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="3"
             tools:text="species"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/character_isAlive"
             app:layout_constraintStart_toStartOf="@id/character_name"
-            app:layout_constraintEnd_toEndOf="@id/character_name"
+            app:layout_constraintEnd_toStartOf="@id/character_gender"
+            app:layout_constraintBottom_toTopOf="@id/character_origin"
             android:padding="4dp"
             />
 
@@ -64,11 +83,13 @@
             android:id="@+id/character_gender"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintHorizontal_weight="2.5"
             tools:text="gender"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/character_species"
-            app:layout_constraintStart_toStartOf="@id/character_name"
+            app:layout_constraintTop_toTopOf="@id/character_species"
+            app:layout_constraintStart_toEndOf="@id/character_species"
             app:layout_constraintEnd_toEndOf="@id/character_name"
+            app:layout_constraintBottom_toBottomOf="@id/character_species"
             android:padding="4dp"
             />
 
@@ -81,6 +102,7 @@
             app:layout_constraintTop_toBottomOf="@id/character_gender"
             app:layout_constraintStart_toStartOf="@id/character_name"
             app:layout_constraintEnd_toEndOf="@id/character_name"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:padding="4dp"
             />
 

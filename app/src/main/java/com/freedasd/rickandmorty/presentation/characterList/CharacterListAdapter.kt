@@ -24,6 +24,7 @@ class CharacterListAdapter : PagingDataAdapter<CharacterUi.Base, RecyclerView.Vi
 
     inner class CharacterViewHolder(private val binding: CharacterItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CharacterUi) {
+            val context = binding.characterGender.context
             item.details(
                 binding.characterPic,
                 binding.characterName,
@@ -32,6 +33,13 @@ class CharacterListAdapter : PagingDataAdapter<CharacterUi.Base, RecyclerView.Vi
                 binding.characterGender,
                 binding.characterOrigin
             )
+            if (item.isAlive() == "Dead") {
+                binding.isAliveDot.background = context.getDrawable(R.drawable.dead_round_dot)
+            } else if (item.isAlive() == "Alive") {
+                binding.isAliveDot.background = context.getDrawable(R.drawable.alive_round_dot)
+            } else {
+                binding.isAliveDot.background = context.getDrawable(R.drawable.unknown_round_dot)
+            }
         }
     }
 

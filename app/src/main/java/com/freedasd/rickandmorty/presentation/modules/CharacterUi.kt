@@ -12,7 +12,16 @@ interface CharacterUi : Same<CharacterUi> {
 
     override fun same(data: CharacterUi) = data == this
 
-    fun details(imageView: ImageView, characterName: TextView, alive: TextView, characterSpecies: TextView, characterGender: TextView, characterLocation: TextView)
+    fun details(
+        imageView: ImageView,
+        characterName: TextView,
+        alive: TextView,
+        characterSpecies: TextView,
+        characterGender: TextView,
+        characterLocation: TextView
+    )
+
+    fun isAlive() : String
 
     class Base @Inject constructor(
         private val id: Int,
@@ -30,6 +39,9 @@ interface CharacterUi : Same<CharacterUi> {
         private val url: String,
         private val created: String
     ) : CharacterUi {
+
+        override fun isAlive() =  isAlive
+
         override fun details(
             imageView: ImageView,
             characterName: TextView,
